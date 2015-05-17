@@ -2,10 +2,14 @@ NULLGRAPH=../nullgraph
 KHMER=../khmer
 GRAPHALIGN=../2015-experimental-graphalign
 
-all: variants-patched.txt ecoli.align.out variants-sim.txt
+all: variants-patched.txt ecoli.align.out variants-sim.txt ecoli.align.out \
+	ecoli-patched.align.out
 
 clean:
 	-rm simple-genome-reads.fa
+
+2015-wok-variant-calling.html: 2015-wok-variant-calling.rst
+	rst2html.py 2015-wok-variant-calling.rst 2015-wok-variant-calling.html
 
 simple-genome.fa:
 	$(NULLGRAPH)/make-random-genome.py -l 1000 -s 1 > simple-genome.fa
