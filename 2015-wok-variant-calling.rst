@@ -1,5 +1,5 @@
-Read-to-graph alignment and error correction
-============================================
+Graph alignment and variant calling
+===================================
 
 Authors: CTB, MRC, Jordan Fish, Jason Pell.
 
