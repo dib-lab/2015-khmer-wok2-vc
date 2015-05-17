@@ -30,7 +30,7 @@ ecoli-mapped.fq.gz.keep.gz: ecoli-mapped.fq.gz
 	gzip ecoli-mapped.fq.gz.keep
 
 ecoli.dn.k21.kh: ecoli-mapped.fq.gz.keep.gz
-	load-into-counting.py -k 21 -x 8e7 ecoli.dn.k21.kh ecoli-mapped.fq.gz.keep.gz
+	load-into-counting.py -k 21 -x 4e7 ecoli.dn.k21.kh ecoli-mapped.fq.gz.keep.gz
 
 ecoli.align.out: ecoli.dn.k21.kh
 	$(GRAPHALIGN)/find-variant-by-align-long.py ecoli.dn.k21.kh ecoliMG1655.fa --variants-out variants-ecoli.txt > ecoli.align.out
