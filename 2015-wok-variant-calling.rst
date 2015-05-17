@@ -31,10 +31,9 @@ Basic graph-based variant calling
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Implementing this took a little bit of extra effort beyond the basic
-short-sequence aligner, because we have to align around gaps in the
-graph.  The way we did this was to break the reference up into a bunch
-of local alignments, each aligned independently, then stitched
-together.
+read aligner, because we want to align past gaps in the graph.  The
+way we implemented this was to break the reference up into a bunch of
+local alignments, each aligned independently, then stitched together.
 
 Again, we tried to keep the API simple. After creating a ReadAligner object, ::
 
@@ -76,11 +75,13 @@ E. coli data set (the same one we used `in the semi-streaming paper
 <https://peerj.com/preprints/890/>`__) and just run the reads against
 the known reference genome, we'll get 74 differences between the graph
 and the reference genome, out of 4639680 positions -- an identity of
-99.998%.  On the one hand, this is not that great (consider that for
-something the size of the human genome, with this error rate we'd be
-seeing 50,000 false positives!); on the other hand, as with error
-correction, the whole analysis stack is surprisingly simple, and we
-haven't spent any time tuning it yet.
+99.998% (`variants-ecoli.txt
+<https://github.com/ctb/2015-khmer-wok2-vc/blob/master/variants-ecoli.txt>`__).
+On the one hand, this is not that great (consider that for something
+the size of the human genome, with this error rate we'd be seeing
+50,000 false positives!); on the other hand, as with error correction,
+the whole analysis stack is surprisingly simple, and we haven't spent
+any time tuning it yet.
 
 Simulated variants, and targeted variant calling
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,8 +89,8 @@ Simulated variants, and targeted variant calling
 With simulated variants in the E. coli genome, it does pretty well.
 Here, rather than changing up the genome and generating synthetic
 reads, we went with the same real reads as before, and instead changed
-the reference genome which we was aligning to the reads.  This was
-done with the `patch-ecoli.py script
+the reference genome we are aligning to the reads.  This was done with
+the `patch-ecoli.py script
 <https://github.com/ctb/2015-khmer-wok2-vc/blob/master/patch-ecoli.py>`__,
 which changes an A to a C at position 500,000, removes two bases at
 position 2m, and adds two bases at position 3m.
@@ -112,11 +113,12 @@ interested in.
 So, for example, here you can align just the patched regions (in
 ecoli-patched-segments.fa) against the read graph and get the same
 answer you got when aligning the entire reference (target
-ecoli-patched-segments.align.out, see file
-ecoli-patched-segments.align.out).  This works in part because we're
-stitching together local alignments, so there are some caveats in
-cases where different overlapping query sequences might lead to
-different optimal alignments - further research needed.
+`ecoli-patched-segments.align.out
+<https://github.com/ctb/2015-khmer-wok2-vc/blob/master/ecoli-patched-segments.align.out>`__).
+This works in part because we're stitching together local alignments,
+so there are some caveats in cases where different overlapping query
+sequences might lead to different optimal alignments - further
+research needed.
 
 Speed considerations
 ~~~~~~~~~~~~~~~~~~~~
@@ -129,7 +131,7 @@ Python so we hope to get this under 5 seconds.
 
 In the future, we expect to get much faster.  Since the alignment is
 guided and piecewise, it should be capable of aligning through highly
-repetitive repeats and is also massively parallelizable, we think that
+repetitive repeats and is also massively parallelizable. We think that
 the main bottleneck is going to be loading in the reads.  We're
 working on optimizing the loading separately, but we're hoping to get
 down to about 8 hours for a full ~50x human genome variant calling
@@ -141,9 +143,9 @@ Memory considerations
 The memory is dominated by graph size, which in turn is dominated by
 the errors in short-read Illumina data.  We have `efficient ways of
 trimming some of these errors <https://peerj.com/preprints/890/>`__,
-and/or compressing down the data, even if we decide not to simply
-correct them; the right approach will depend on details of the data
-(haploid?  diploid? polyploid?)  and will have to be studied.
+and/or compressing down the data, even if we don't just correct them;
+the right approach will depend on details of the data (haploid?
+diploid? polyploid?) and will have to be studied.
 
 For E. coli, we do the above variant calling in under 400 MB of RAM.
 We should be able to get that down to under 100 MB of RAM easily
@@ -170,12 +172,12 @@ reads, or...
 
 In effect, what we're doing is (rather boring) reference-guided
 assembly.  Wouldn't it be nice if we extended it to longer indels, as
-in Holtgrewe et al., 2015
+in `Holtgrewe et al., 2015
 <http://www.ncbi.nlm.nih.gov/pubmed/25649620>`__?  Yes, it would. Then
 we could ask for an assembly to be done between two points...  This
 would enable the kinds of approaches that (e.g.) `Rimmer et al., 2014
 <http://www.nature.com/ng/journal/v46/n8/full/ng.3036.html>`__
-provide.
+describe.
 
 One big problem with this approach is that we're only returning
 positions in the reference where the graph has *no* agreement - this
