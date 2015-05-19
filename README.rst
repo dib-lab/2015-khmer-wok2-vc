@@ -52,7 +52,7 @@ to; on AWS, this is /mnt. ::
 
 Then, clone the pipeline::
 
-   git clone https://github.com/dib-lab/2015-khmer-wok1-vc.git wok2
+   git clone https://github.com/dib-lab/2015-khmer-wok2-vc.git wok2
 
 and grab the data::
 
