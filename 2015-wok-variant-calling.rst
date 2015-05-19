@@ -3,7 +3,7 @@ Graph alignment and variant calling
 
 :author: \C. Titus Brown, Michael R. Crusoe, Jordan Fish, Jason Pell.
 :tags: khmer,wok,graphalign,variants
-:date: 2015-05-18
+:date: 2015-05-19
 :slug: 2015-wok-variant-calling
 :category: science
 
@@ -223,7 +223,7 @@ A number of people have done previous work on graph-based variant calling --
   data, which is very similar to what we're doing.
 
 * Using k-mers to find variation is nothing new.  Two articles that
-  caught my eye -- BreaKmer `(Abo et al, 2015)
+  caught my eye -- `BreaKmer (Abo et al, 2015)
   <http://www.ncbi.nlm.nih.gov/pubmed/25428359>`__ and `kSNP3 (Gardner
   et al., 2015)
   <http://bioinformatics.oxfordjournals.org/content/early/2015/04/25/bioinformatics.btv271.abstract>`__
