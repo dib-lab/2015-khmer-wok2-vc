@@ -1,15 +1,21 @@
 Graph alignment and variant calling
 ===================================
 
-Authors: CTB, MRC, Jordan Fish, Jason Pell.
+:author: C. Titus Brown, Michael R. Crusoe, Jordan Fish, Jason Pell.
+:tags: khmer,wok,graphalign,variants
+:date: 2015-05-18
+:slug: 2015-wok-variant-calling
+:category: science
 
 There's an interesting and intuitive connection between `error
-correction <@@>`__ and variant calling - if you can do one well, it
-lets you do (parts of) the other well.  In our previous blog post on
-some new features in khmer, we introduced our new "graphalign"
-functionality, that lets us align short sequences to De Bruijn graphs,
-and we discussed how we use it for error correction.  Now, let's
-try it out for some simple variant calling!
+correction
+<http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__ and
+variant calling - if you can do one well, it lets you do (parts of)
+the other well.  In our previous blog post on some new features in
+khmer, we introduced our new "graphalign" functionality, that lets us
+align short sequences to De Bruijn graphs, and we discussed how we use
+it for error correction.  Now, let's try it out for some simple
+variant calling!
 
 Graphalign can potentially be used for variant calling in a few
 different ways - by mapping reads to the reference graph and then
@@ -226,6 +232,8 @@ A number of people have done previous work on graph-based variant calling --
 Appendix: Running this code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use '2015-wok' branch of khmer.
-
-(Provide docker container, AWS instructions.)
+The computational results in this blog post are Rather Reproducible
+(TM).  Please see
+https://github.com/dib-lab/2015-khmer-wok2-vc/blob/master/README.rst
+for instructions on replicating the results on a virtual machine or
+using a Docker container.
