@@ -11,11 +11,12 @@ There's an interesting and intuitive connection between `error
 correction
 <http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__ and
 variant calling - if you can do one well, it lets you do (parts of)
-the other well.  In our previous blog post on some new features in
-khmer, we introduced our new "graphalign" functionality, that lets us
-align short sequences to De Bruijn graphs, and we discussed how we use
-it for error correction.  Now, let's try it out for some simple
-variant calling!
+the other well.  In `the previous blog post
+<http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__ on
+some new features in khmer, we introduced our new "graphalign"
+functionality, that lets us align short sequences to De Bruijn graphs,
+and we discussed how we use it for error correction.  Now, let's try
+it out for some simple variant calling!
 
 Graphalign can potentially be used for variant calling in a few
 different ways - by mapping reads to the reference graph and then
@@ -211,6 +212,10 @@ A number of people have done previous work on graph-based variant calling --
   some of the work that Jared Simpson is doing on FM indices has been
   a source of inspiration.
 
+  (See especially `Zam's very nice comment
+  <http://ivory.idyll.org/blog/2015-wok-error-correction.html#comment-2033226348>`__
+  on our error correction post!)
+
 * Heng Li's `FermiKit <http://arxiv.org/abs/1504.06574>`__ does
   something very similar to what we're proposing to do, although it
   seems like he effectively does an assembly before calling variants.
@@ -228,6 +233,12 @@ A number of people have done previous work on graph-based variant calling --
   et al., 2015)
   <http://bioinformatics.oxfordjournals.org/content/early/2015/04/25/bioinformatics.btv271.abstract>`__
   both do this to great effect.
+
+* the GA4GH is working on graph-based variant calling, primarily for
+  human.  So far it seems like they are planning to rely on well
+  curated genomes and variants; I'm going to be working with (much)
+  poorer quality genomes, which may account for some differences in
+  how we're thinking about things.
 
 Appendix: Running this code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
