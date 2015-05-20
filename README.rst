@@ -63,7 +63,7 @@ and grab the data::
 
 And, finally, run the pipeline::
 
-   make
+   make KHMER=/home/ubuntu/khmer NULLGRAPH=/home/ubuntu/nullgraph
 
 To interpret the results, please see the blog post above, or look through
 the Makefile.
