@@ -29,7 +29,7 @@ and run::
    sudo apt-get update && \
        sudo apt-get -y install python-virtualenv python-dev git bowtie2 \
             samtools libboost-dev zlib1g-dev && \
-       shutdown -r now
+       sudo shutdown -r now
 
 Log back in, and set yourself up with a virtualenv::
 
