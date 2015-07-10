@@ -3,6 +3,7 @@ import sys
 import argparse
 import screed
 import khmer
+import traceback
 from graphAlignment import align_long, AlignmentIndex
 
 
@@ -18,11 +19,19 @@ def main():
     ct = khmer.load_counting_hash(args.table)
     aligner = khmer.ReadAligner(ct, args.trusted, 1.0)
 
+    i = 0
     for record in screed.open(args.ref):
+        i += 1
+        if i > 50:
+           break
         seq = record.sequence
         seq = seq.replace('N', 'A')
 
-        score, alignment = align_long(ct, aligner, seq)
+        try:
+            score, alignment = align_long(ct, aligner, seq)
+        except:
+            traceback.print_exc()
+            continue
 
         g = alignment.g
         r = alignment.r

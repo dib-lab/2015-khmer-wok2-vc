@@ -14,7 +14,7 @@ def reverse_complement(s):
     """
     Build reverse complement of 's', alignment-aware.
     """
-    r = array.array('c', s)
+    r = array.array('c', str(s))
     r.reverse()
     r = string.join(r, '')
     c = string.translate(r, __complementTranslation)
@@ -165,14 +165,14 @@ class AlignmentIndex(object):
         gi = gpost
         
         while diff > 0:
-            (a, b) = self.galign[gi]
+            (a, b, _) = self.galign[gi]
             if b in 'ACGT':
                 diff -= 1
             gi += 1
 
         # make sure it's on a valid letter ;)
         while 1:
-            (a, b) = self.galign[gi]
+            (a, b, _) = self.galign[gi]
             if b in 'ACGT':
                 break
             gi += 1
@@ -241,6 +241,8 @@ def align_segment_right(aligner, seq, next_ch=None):
         return 0, make_gap(seq)
 
     score, g, r, truncated, covs = aligner.align_forward(seq)
+    if truncated:
+        return 0, make_gap(seq)
     galign = GraphAlignment(g, r, covs)
 
     # did it fail to align across entire segment?
@@ -348,7 +350,7 @@ def find_highest_abund_kmer(ct, r):
 
 
 def test_1():
-    ct = khmer.new_counting_hash(20, 1.1e6, 4)
+    ct = khmer.CountingHash(20, 1.1e6, 4)
     ct.consume_fasta('simple-haplo-reads.fa.keep')
     aligner = khmer.ReadAligner(ct, 5, 1.0)
 
@@ -372,7 +374,7 @@ def test_1():
 
 
 def test_2():
-    ct = khmer.new_counting_hash(20, 1.1e6, 4)
+    ct = khmer.CountingHash(20, 1.1e6, 4)
     ct.consume_fasta('simple-haplo-reads.fa.keep')
     aligner = khmer.ReadAligner(ct, 5, 1.0)
 
